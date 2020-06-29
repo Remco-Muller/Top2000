@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Top2000ModelStoreContainer" CdmEntityContainer="Top2000Entities1">
+    <EntitySetMapping Name="Top2000List">
+      <EntityTypeMapping TypeName="Top2000Model.Top2000List">
+        <MappingFragment StoreEntitySet="Top2000List">
+          <ScalarProperty Name="Top2000ListID" ColumnName="Top2000ListID" />
+          <ScalarProperty Name="Top2000ListYear" ColumnName="Top2000ListYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tracks">
+      <EntityTypeMapping TypeName="Top2000Model.Tracks">
+        <MappingFragment StoreEntitySet="Tracks">
+          <ScalarProperty Name="trackId" ColumnName="trackId" />
+          <ScalarProperty Name="trackName" ColumnName="trackName" />
+          <ScalarProperty Name="trackYear" ColumnName="trackYear" />
+          <ScalarProperty Name="trackArtist" ColumnName="trackArtist" />
+          <ScalarProperty Name="trackYearList" ColumnName="trackYearList" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TracksTop2000List">
+      <EntityTypeMapping TypeName="Top2000Model.TracksTop2000List">
+        <MappingFragment StoreEntitySet="TracksTop2000List">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="TracksID" ColumnName="TracksID" />
+          <ScalarProperty Name="Top2000ListYear" ColumnName="Top2000ListYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="voteTrackUser">
+      <EntityTypeMapping TypeName="Top2000Model.voteTrackUser">
+        <MappingFragment StoreEntitySet="voteTrackUser">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="yearlistYear" ColumnName="yearlistYear" />
+          <ScalarProperty Name="trackID" ColumnName="trackID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

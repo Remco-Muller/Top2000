@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Top2000.Models.Tracks>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Track
+        </th>
+        <th>
+            Release year
+        </th>
+        <th>
+            Artist
+        </th>
+        <th>
+            YearList
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.trackName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trackYear.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.trackArtist)
+        </td>
+        <td>
+            <input type="button" class="btn  btn-success" value="Add" onclick="window.location.href = '/Tracks/Add/@item.trackId'" />
+            <input type="button" class="btn  btn-danger" value="Remove" onclick="window.location.href = '/Tracks/Remove/@item.trackId'" />
+
+        </td>
+        <td>
+            <input type="button" class="btn  btn-primary" value="Edit" onclick="window.location.href = '/Tracks/Edit/@item.trackId'" />
+            <input type="button" class="btn  btn-warning" value="Details" onclick="window.location.href = '/Tracks/Details/@item.trackId'" />
+            <input type="button" class="btn  btn-danger" value="Delete" onclick="window.location.href = '/Tracks/Delete/@item.trackId'" />
+        </td>
+    </tr>
+}
+
+</table>

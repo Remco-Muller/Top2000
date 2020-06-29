@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Top2000Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Top2000List">
+    <Key>
+      <PropertyRef Name="Top2000ListYear" />
+    </Key>
+    <Property Name="Top2000ListID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Top2000ListYear" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="TracksTop2000List" Relationship="Self.FK_TracksTop2000List_Top2000List" FromRole="Top2000List" ToRole="TracksTop2000List" />
+  </EntityType>
+  <EntityType Name="Tracks">
+    <Key>
+      <PropertyRef Name="trackId" />
+    </Key>
+    <Property Name="trackId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="trackName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="trackYear" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="trackArtist" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="trackYearList" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="TracksTop2000List" Relationship="Self.FK_TracksTop2000List_Tracks" FromRole="Tracks" ToRole="TracksTop2000List" />
+    <NavigationProperty Name="voteTrackUser" Relationship="Self.FK_voteTrackUser_Tracks" FromRole="Tracks" ToRole="voteTrackUser" />
+  </EntityType>
+  <EntityType Name="TracksTop2000List">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TracksID" Type="Int32" Nullable="false" />
+    <Property Name="Top2000ListYear" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Top2000List" Relationship="Self.FK_TracksTop2000List_Top2000List" FromRole="TracksTop2000List" ToRole="Top2000List" />
+    <NavigationProperty Name="Tracks" Relationship="Self.FK_TracksTop2000List_Tracks" FromRole="TracksTop2000List" ToRole="Tracks" />
+  </EntityType>
+  <EntityType Name="voteTrackUser">
+    <Key>
+      <PropertyRef Name="userID" />
+      <PropertyRef Name="yearlistYear" />
+      <PropertyRef Name="trackID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" />
+    <Property Name="yearlistYear" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="trackID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Tracks" Relationship="Self.FK_voteTrackUser_Tracks" FromRole="voteTrackUser" ToRole="Tracks" />
+  </EntityType>
+  <Association Name="FK_TracksTop2000List_Top2000List">
+    <End Role="Top2000List" Type="Self.Top2000List" Multiplicity="1" />
+    <End Role="TracksTop2000List" Type="Self.TracksTop2000List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Top2000List">
+        <PropertyRef Name="Top2000ListYear" />
+      </Principal>
+      <Dependent Role="TracksTop2000List">
+        <PropertyRef Name="Top2000ListYear" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TracksTop2000List_Tracks">
+    <End Role="Tracks" Type="Self.Tracks" Multiplicity="1" />
+    <End Role="TracksTop2000List" Type="Self.TracksTop2000List" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tracks">
+        <PropertyRef Name="trackId" />
+      </Principal>
+      <Dependent Role="TracksTop2000List">
+        <PropertyRef Name="TracksID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_voteTrackUser_Tracks">
+    <End Role="Tracks" Type="Self.Tracks" Multiplicity="1" />
+    <End Role="voteTrackUser" Type="Self.voteTrackUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tracks">
+        <PropertyRef Name="trackId" />
+      </Principal>
+      <Dependent Role="voteTrackUser">
+        <PropertyRef Name="trackID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Top2000Entities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Top2000List" EntityType="Self.Top2000List" />
+    <EntitySet Name="Tracks" EntityType="Self.Tracks" />
+    <EntitySet Name="TracksTop2000List" EntityType="Self.TracksTop2000List" />
+    <EntitySet Name="voteTrackUser" EntityType="Self.voteTrackUser" />
+    <AssociationSet Name="FK_TracksTop2000List_Top2000List" Association="Self.FK_TracksTop2000List_Top2000List">
+      <End Role="Top2000List" EntitySet="Top2000List" />
+      <End Role="TracksTop2000List" EntitySet="TracksTop2000List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TracksTop2000List_Tracks" Association="Self.FK_TracksTop2000List_Tracks">
+      <End Role="Tracks" EntitySet="Tracks" />
+      <End Role="TracksTop2000List" EntitySet="TracksTop2000List" />
+    </AssociationSet>
+    <AssociationSet Name="FK_voteTrackUser_Tracks" Association="Self.FK_voteTrackUser_Tracks">
+      <End Role="Tracks" EntitySet="Tracks" />
+      <End Role="voteTrackUser" EntitySet="voteTrackUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

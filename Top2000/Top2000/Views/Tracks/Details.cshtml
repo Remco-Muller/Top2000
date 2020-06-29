@@ -1,0 +1,42 @@
+﻿@model Top2000.Models.Tracks
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tracks</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.trackName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trackName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.trackYear)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trackYear)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.trackArtist)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.trackArtist)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.trackId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

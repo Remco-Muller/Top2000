@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Top2000StoreContainer" CdmEntityContainer="Top2000Entities3">
+    <EntitySetMapping Name="Tracks">
+      <EntityTypeMapping TypeName="Top2000.Tracks">
+        <MappingFragment StoreEntitySet="Tracks">
+          <ScalarProperty Name="trackId" ColumnName="trackId" />
+          <ScalarProperty Name="trackName" ColumnName="trackName" />
+          <ScalarProperty Name="trackYear" ColumnName="trackYear" />
+          <ScalarProperty Name="trackArtist" ColumnName="trackArtist" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YearList">
+      <EntityTypeMapping TypeName="Top2000.YearList">
+        <MappingFragment StoreEntitySet="YearList">
+          <ScalarProperty Name="YearListId" ColumnName="YearListId" />
+          <ScalarProperty Name="YearListYear" ColumnName="YearListYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Track_YearList_User">
+      <EntityTypeMapping TypeName="Top2000.Track_YearList_User">
+        <MappingFragment StoreEntitySet="Track_YearList_User">
+          <ScalarProperty Name="Tracks_TrackId" ColumnName="Tracks_TrackId" />
+          <ScalarProperty Name="Users_UserName" ColumnName="Users_UserName" />
+          <ScalarProperty Name="YearList_YearListId" ColumnName="YearList_YearListId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="Tracks_YearList" TypeName="Top2000.Tracks_YearList" StoreEntitySet="Tracks_YearList">
+      <EndProperty Name="Tracks">
+        <ScalarProperty Name="trackId" ColumnName="Tracks_TrackId" />
+      </EndProperty>
+      <EndProperty Name="YearList">
+        <ScalarProperty Name="YearListId" ColumnName="YearList_YearListId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <FunctionImportMapping FunctionImportName="spCheckUserVote" FunctionName="Top2000.Store.spCheckUserVote">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Top2000.spCheckUserVote_Result">
+          <ScalarProperty Name="Tracks_TrackId" ColumnName="Tracks_TrackId" />
+          <ScalarProperty Name="Users_UserName" ColumnName="Users_UserName" />
+          <ScalarProperty Name="YearList_YearListId" ColumnName="YearList_YearListId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spSelectAllTitles" FunctionName="Top2000.Store.spSelectAllTitles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Top2000.spSelectAllTitles_Result">
+          <ScalarProperty Name="Tracks_TrackId" ColumnName="Tracks_TrackId" />
+          <ScalarProperty Name="YearList_YearListId" ColumnName="YearList_YearListId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spSelectAllVotes" FunctionName="Top2000.Store.spSelectAllVotes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Top2000.spSelectAllVotes_Result">
+          <ScalarProperty Name="Tracks_TrackId" ColumnName="Tracks_TrackId" />
+          <ScalarProperty Name="Users_UserName" ColumnName="Users_UserName" />
+          <ScalarProperty Name="YearList_YearListId" ColumnName="YearList_YearListId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

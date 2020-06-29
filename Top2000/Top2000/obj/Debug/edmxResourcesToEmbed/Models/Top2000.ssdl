@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Top2000.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Track_YearList_User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Track_TrackId" Type="int" />
+    <Property Name="Users_UserName" Type="nvarchar(max)" />
+    <Property Name="YearList_YearListId" Type="int" />
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tracks">
+    <Key>
+      <PropertyRef Name="trackId" />
+    </Key>
+    <Property Name="trackId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="trackName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="trackYear" Type="datetime" Nullable="false" />
+    <Property Name="trackArtist" Type="nvarchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tracks_YearList">
+    <Key>
+      <PropertyRef Name="Tracks_TrackId" />
+      <PropertyRef Name="YearList_YearListId" />
+    </Key>
+    <Property Name="Tracks_TrackId" Type="int" Nullable="false" />
+    <Property Name="YearList_YearListId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="YearList">
+    <Key>
+      <PropertyRef Name="YearListId" />
+    </Key>
+    <Property Name="YearListId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="YearListYear" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Track_YearList_User_Tracks">
+    <End Role="Tracks" Type="Self.Tracks" Multiplicity="0..1" />
+    <End Role="Track_YearList_User" Type="Self.Track_YearList_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tracks">
+        <PropertyRef Name="trackId" />
+      </Principal>
+      <Dependent Role="Track_YearList_User">
+        <PropertyRef Name="Track_TrackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Track_YearList_User_YearList">
+    <End Role="YearList" Type="Self.YearList" Multiplicity="0..1" />
+    <End Role="Track_YearList_User" Type="Self.Track_YearList_User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YearList">
+        <PropertyRef Name="YearListId" />
+      </Principal>
+      <Dependent Role="Track_YearList_User">
+        <PropertyRef Name="YearList_YearListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tracks_YearList_Tracks">
+    <End Role="Tracks" Type="Self.Tracks" Multiplicity="1" />
+    <End Role="Tracks_YearList" Type="Self.Tracks_YearList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tracks">
+        <PropertyRef Name="trackId" />
+      </Principal>
+      <Dependent Role="Tracks_YearList">
+        <PropertyRef Name="Tracks_TrackId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tracks_YearList_YearList">
+    <End Role="YearList" Type="Self.YearList" Multiplicity="1" />
+    <End Role="Tracks_YearList" Type="Self.Tracks_YearList" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YearList">
+        <PropertyRef Name="YearListId" />
+      </Principal>
+      <Dependent Role="Tracks_YearList">
+        <PropertyRef Name="YearList_YearListId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="spCheckUserVote" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="track" Type="int" Mode="In" />
+    <Parameter Name="user" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="spDeleteTracks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="YearID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDeleteVotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="YearID" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spNumberOfSongsOfArtist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Name" Type="varchar(max)" Mode="In" />
+  </Function>
+  <Function Name="spSelectAllTitles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Year" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spSelectAllVotes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="year" Type="int" Mode="In" />
+    <Parameter Name="track" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spSelectListingOnYear" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="Yearid" Type="int" Mode="In" />
+  </Function>
+  <EntityContainer Name="Top2000StoreContainer">
+    <EntitySet Name="Track_YearList_User" EntityType="Self.Track_YearList_User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tracks" EntityType="Self.Tracks" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tracks_YearList" EntityType="Self.Tracks_YearList" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YearList" EntityType="Self.YearList" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Track_YearList_User_Tracks" Association="Self.FK_Track_YearList_User_Tracks">
+      <End Role="Tracks" EntitySet="Tracks" />
+      <End Role="Track_YearList_User" EntitySet="Track_YearList_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Track_YearList_User_YearList" Association="Self.FK_Track_YearList_User_YearList">
+      <End Role="YearList" EntitySet="YearList" />
+      <End Role="Track_YearList_User" EntitySet="Track_YearList_User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tracks_YearList_Tracks" Association="Self.FK_Tracks_YearList_Tracks">
+      <End Role="Tracks" EntitySet="Tracks" />
+      <End Role="Tracks_YearList" EntitySet="Tracks_YearList" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tracks_YearList_YearList" Association="Self.FK_Tracks_YearList_YearList">
+      <End Role="YearList" EntitySet="YearList" />
+      <End Role="Tracks_YearList" EntitySet="Tracks_YearList" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
